@@ -147,7 +147,7 @@ graph LR;
     end
     subgraph Analysis["Ranking Analysis"]
         A --> B4[main]
-        B4 --> E1[Animation.ipynb]
+        B4 --> E1[熱力圖.py]
         B4 --> E2[Bradley_Terry.py]
         B4 --> E3[Correlation_Cauculation.py]
         B4 --> E4[Elo.py]
