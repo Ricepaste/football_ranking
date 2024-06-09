@@ -56,7 +56,6 @@ The generated pairwise data should be saved to:
 
 ```bash
 Mplus/MET_Maydeu-Olivares_web/test.dat
-
 ```
 
 ### Statistical Models
