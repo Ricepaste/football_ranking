@@ -1,3 +1,4 @@
+[![GitHub license](https://img.shields.io/github/license/microsoft/AI-For-Beginners.svg)](https://github.com/microsoft/AI-For-Beginners/blob/main/LICENSE)
 # Football Ranking by Various Statistical Models
 
 ## Description
