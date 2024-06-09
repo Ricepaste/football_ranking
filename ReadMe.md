@@ -145,4 +145,4 @@ If you have any questions or feedback, please reach out to:
 
 - **Name:** Chia-Jung, Kuo
 - **Email:** n22126@gmail.com
-- **GitHub:** [Ricepaste](https://github.com/yourusername)
+- **GitHub:** [Ricepaste](https://github.com/Ricepaste)
