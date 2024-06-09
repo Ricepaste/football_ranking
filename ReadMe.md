@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/microsoft/AI-For-Beginners.svg)](https://github.com/microsoft/AI-For-Beginners/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Ricepaste/football_ranking/blob/master/LICENSE)
 # Football Ranking by Various Statistical Models
 
 ## Description
