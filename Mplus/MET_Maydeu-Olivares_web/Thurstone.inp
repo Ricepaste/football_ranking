@@ -1,0 +1,197 @@
+Title: cars pc data: Unrestricted model
+DATA: 
+	FILE IS '\Users\sharpaste\Documents\program\
+	testing\Python\yolo\Mplus\MET_Maydeu-Olivares_web\test.dat';
+! the data file contains 294 observations in free format
+
+VARIABLE: 
+	NAMES ARE pc1_2-pc1_18 pc2_3-pc2_18 
+	pc3_4-pc3_18 pc4_5-pc4_18 pc5_6-pc5_18 
+	pc6_7-pc6_18 pc7_8-pc7_18 pc8_9-pc8_18 
+	pc9_10-pc9_18 pc10_11-pc10_18 pc11_12-pc11_18 
+	pc12_13-pc12_18 pc13_14-pc13_18 pc14_15-pc14_18 
+	pc15_16-pc15_18 pc16_17-pc16_18 pc17_18;
+
+! the names reflect the comparisons performed
+
+	CATEGORICAL = pc1_2-pc1_18 pc2_3-pc2_18 
+	pc3_4-pc3_18 pc4_5-pc4_18 pc5_6-pc5_18 
+	pc6_7-pc6_18 pc7_8-pc7_18 pc8_9-pc8_18 
+	pc9_10-pc9_18 pc10_11-pc10_18 pc11_12-pc11_18 
+	pc12_13-pc12_18 pc13_14-pc13_18 pc14_15-pc14_18 
+	pc15_16-pc15_18 pc16_17-pc16_18 pc17_18;
+
+! the data is treated as categorical
+
+ANALYSIS:
+	TYPE = MEANSTRUCTURE;
+! both thresholds and tetrachoric correlations will be modeled
+		
+	ESTIMATOR=WLSM;
+! DWLS estimation with mean corrected S-B statistic
+! for mean and variance corrected S-B use WLSMV instead
+	
+	PARAMETERIZATION = THETA;
+! the program uses a model-based diagonal matrix D to enforce
+! the variance standardization
+
+MODEL:
+	f1 BY pc1_2-pc1_18@1;
+	f2 BY pc2_3-pc2_18@1;
+	f3 BY pc3_4-pc3_18@1;
+	f4 BY pc4_5-pc4_18@1;
+	f5 BY pc5_6-pc5_18@1;
+	f6 BY pc6_7-pc6_18@1;
+	f7 BY pc7_8-pc7_18@1;
+	f8 BY pc8_9-pc8_18@1;
+	f9 BY pc9_10-pc9_18@1;
+	f10 BY pc10_11-pc10_18@1;
+	f11 BY pc11_12-pc11_18@1;
+	f12 BY pc12_13-pc12_18@1;
+	f13 BY pc13_14-pc13_18@1;
+	f14 BY pc14_15-pc14_18@1;
+	f15 BY pc15_16-pc15_18@1;
+	f16 BY pc16_17-pc16_18@1;
+	f17 BY pc17_18@1;
+	f2 BY pc1_2@-1 ;
+	f3 BY pc1_3@-1 pc2_3@-1 ;
+	f4 BY pc1_4@-1 pc2_4@-1 
+		pc3_4@-1 ;
+	f5 BY pc1_5@-1 pc2_5@-1 
+		pc3_5@-1 pc4_5@-1 ;
+	f6 BY pc1_6@-1 pc2_6@-1 
+		pc3_6@-1 pc4_6@-1 pc5_6@-1 ;
+	f7 BY pc1_7@-1 pc2_7@-1 
+		pc3_7@-1 pc4_7@-1 pc5_7@-1 
+		pc6_7@-1 ;
+	f8 BY pc1_8@-1 pc2_8@-1 
+		pc3_8@-1 pc4_8@-1 pc5_8@-1 
+		pc6_8@-1 pc7_8@-1 ;
+	f9 BY pc1_9@-1 pc2_9@-1 
+		pc3_9@-1 pc4_9@-1 pc5_9@-1 
+		pc6_9@-1 pc7_9@-1 pc8_9@-1 ;
+	f10 BY pc1_10@-1 pc2_10@-1 
+		pc3_10@-1 pc4_10@-1 pc5_10@-1 
+		pc6_10@-1 pc7_10@-1 pc8_10@-1 
+		pc9_10@-1 ;
+	f11 BY pc1_11@-1 pc2_11@-1 
+		pc3_11@-1 pc4_11@-1 pc5_11@-1 
+		pc6_11@-1 pc7_11@-1 pc8_11@-1 
+		pc9_11@-1 pc10_11@-1 ;
+	f12 BY pc1_12@-1 pc2_12@-1 
+		pc3_12@-1 pc4_12@-1 pc5_12@-1 
+		pc6_12@-1 pc7_12@-1 pc8_12@-1 
+		pc9_12@-1 pc10_12@-1 pc11_12@-1 ;
+	f13 BY pc1_13@-1 pc2_13@-1 
+		pc3_13@-1 pc4_13@-1 pc5_13@-1 
+		pc6_13@-1 pc7_13@-1 pc8_13@-1 
+		pc9_13@-1 pc10_13@-1 pc11_13@-1 
+		pc12_13@-1 ;
+	f14 BY pc1_14@-1 pc2_14@-1 
+		pc3_14@-1 pc4_14@-1 pc5_14@-1 
+		pc6_14@-1 pc7_14@-1 pc8_14@-1 
+		pc9_14@-1 pc10_14@-1 pc11_14@-1 
+		pc12_14@-1 pc13_14@-1 ;
+	f15 BY pc1_15@-1 pc2_15@-1 
+		pc3_15@-1 pc4_15@-1 pc5_15@-1 
+		pc6_15@-1 pc7_15@-1 pc8_15@-1 
+		pc9_15@-1 pc10_15@-1 pc11_15@-1 
+		pc12_15@-1 pc13_15@-1 pc14_15@-1 ;
+	f16 BY pc1_16@-1 pc2_16@-1 
+		pc3_16@-1 pc4_16@-1 pc5_16@-1 
+		pc6_16@-1 pc7_16@-1 pc8_16@-1 
+		pc9_16@-1 pc10_16@-1 pc11_16@-1 
+		pc12_16@-1 pc13_16@-1 pc14_16@-1 
+		pc15_16@-1 ;
+	f17 BY pc1_17@-1 pc2_17@-1 
+		pc3_17@-1 pc4_17@-1 pc5_17@-1 
+		pc6_17@-1 pc7_17@-1 pc8_17@-1 
+		pc9_17@-1 pc10_17@-1 pc11_17@-1 
+		pc12_17@-1 pc13_17@-1 pc14_17@-1 
+		pc15_17@-1 pc16_17@-1 ;
+	f18 BY pc1_18@-1 pc2_18@-1 
+		pc3_18@-1 pc4_18@-1 pc5_18@-1 
+		pc6_18@-1 pc7_18@-1 pc8_18@-1 
+		pc9_18@-1 pc10_18@-1 pc11_18@-1 
+		pc12_18@-1 pc13_18@-1 pc14_18@-1 
+		pc15_18@-1 pc16_18@-1 pc17_18@-1 ;
+	
+
+! this is matrix A, fixed factor loadings
+
+! the factors are 
+!		f1 = Citroen AX
+!		f2 = Fiat Punto
+!		f3 = Nissan Micra
+!		f4 = Opel Corsa
+!		f5 = Peugeot 106
+!		f6 = Seat Ibiza
+!		f7 = Volkswagen Polo
+
+	[pc1_2$1-pc17_18$1@0];
+
+! intercepts fixed at zero
+
+	[f1-f17* f18@0];
+
+! the means of first n-1 factors are free, the last mean is fixed at 0
+
+	pc1_2-pc17_18*.1;
+
+! pair specific error specific variances are free (starting value =.1)
+! if these variances are to be set all equal use instead
+! 	pc12-pc67(1);
+
+! UNRESTRICTED MODEL SPECIFICATION
+	f1@1;
+	f18@1;
+! factor variances for the first and last factors are fixed at 1
+! all other factor variances are free parameters
+	f2 with f1*;
+	f3 with f1-f2*;
+	f4 with f1-f3*;
+	f5 with f1-f4*;
+	f6 with f1-f5*;
+	f7 with f1-f6*;
+	f8 with f1-f7*;
+	f9 with f1-f8*;
+	f10 with f1-f9*;
+	f11 with f1-f10*;
+	f12 with f1-f11*;
+	f13 with f1-f12*;
+	f14 with f1-f13*;
+	f15 with f1-f14*;
+	f16 with f1-f15*;
+	f17 with f1-f16*;
+	
+! factor covariances free except those involving the last object
+	f18 with f1-f17@0;
+
+! which are fixed at 0
+
+! CASE 3 MODEL SPECIFICATION
+!	f1-f6*;
+!	f7@1;
+! factor variances are free except for the last one, fixed at 1
+!	f2 with f1@0;
+!	f3 with f1-f2@0;
+!	f4 with f1-f3@0;
+!	f5 with f1-f4@0;
+!	f6 with f1-f5@0;
+!	f7 with f1-f6@0;
+! factor covariances fixed at 0
+
+! CASE 5 MODEL SPECIFICATION
+!	f1-f7@1;
+! factor variances are fixed at 1
+!	f2 with f1@0;
+!	f3 with f1-f2@0;
+!	f4 with f1-f3@0;
+!	f5 with f1-f4@0;
+!	f6 with f1-f5@0;
+!	f7 with f1-f6@0;
+! factor covariances fixed at 0
+
+OUTPUT: TECH1; TECH5;
+! use TECH1 to verify that the A matrix is properly specified
+! use TECH5 to obtain the function minimum (needed for S-B nested tests)

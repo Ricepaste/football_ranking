@@ -1,0 +1,643 @@
+Mplus VERSION 8.3
+MUTHEN & MUTHEN
+05/12/2024   3:46 PM
+
+INPUT INSTRUCTIONS
+
+  Title: cars pc data: Unrestricted model
+  DATA:
+  	FILE IS '\Users\sharpaste\Documents\program\
+  	testing\Python\yolo\Mplus\MET_Maydeu-Olivares_web\test.dat';
+
+  VARIABLE:
+  	NAMES ARE pc1_2-pc1_4 pc2_3-pc2_4
+  	pc3_4;
+
+  ! the names reflect the comparisons performed
+
+  	CATEGORICAL = pc1_2-pc1_4 pc2_3-pc2_4
+  	pc3_4;
+
+  ! the data is treated as categorical
+
+  ANALYSIS:
+  	TYPE = MEANSTRUCTURE;
+  ! both thresholds and tetrachoric correlations will be modeled
+  		
+  	ESTIMATOR=WLSM;
+  ! DWLS estimation with mean corrected S-B statistic
+  ! for mean and variance corrected S-B use WLSMV instead
+  	
+  	PARAMETERIZATION = THETA;
+  ! the program uses a model-based diagonal matrix D to enforce
+  ! the variance standardization
+
+  MODEL:
+  	f1 BY pc1_2-pc1_4@1;
+  	f2 BY pc2_3-pc2_4@1;
+  	f3 BY pc3_4@1;
+  	f2 BY pc1_2@-1 ;
+  	f3 BY pc1_3@-1 pc2_3@-1 ;
+  	f4 BY pc1_4@-1 pc2_4@-1
+  		pc3_4@-1 ;
+  	
+
+  ! this is matrix A, fixed factor loadings
+
+  ! the factors are
+  !		f1 = Citroen AX
+  !		f2 = Fiat Punto
+  !		f3 = Nissan Micra
+  !		f4 = Opel Corsa
+  !		f5 = Peugeot 106
+  !		f6 = Seat Ibiza
+  !		f7 = Volkswagen Polo
+
+  	[pc1_2$1-pc3_4$1@0];
+
+  ! intercepts fixed at zero
+
+  	[f1-f3* f4@0];
+
+  ! the means of first n-1 factors are free, the last mean is fixed at 0
+
+  	pc1_2-pc3_4*.1;
+
+  ! pair specific error specific variances are free (starting value =.1)
+  ! if these variances are to be set all equal use instead
+  ! 	pc12-pc67(1);
+
+  ! UNRESTRICTED MODEL SPECIFICATION
+  	f1@1;
+  	f4@1;
+  ! factor variances for the first and last factors are fixed at 1
+  ! all other factor variances are free parameters
+  	f2 with f1*;
+  	f3 with f1-f2*;
+  	
+  ! factor covariances free except those involving the last object
+  	f4 with f1-f3@0;
+
+  ! which are fixed at 0
+
+  ! CASE 3 MODEL SPECIFICATION
+  !	f1-f6*;
+  !	f7@1;
+  ! factor variances are free except for the last one, fixed at 1
+  !	f2 with f1@0;
+  !	f3 with f1-f2@0;
+  !	f4 with f1-f3@0;
+  !	f5 with f1-f4@0;
+  !	f6 with f1-f5@0;
+  !	f7 with f1-f6@0;
+  ! factor covariances fixed at 0
+
+  ! CASE 5 MODEL SPECIFICATION
+  !	f1-f7@1;
+  ! factor variances are fixed at 1
+  !	f2 with f1@0;
+  !	f3 with f1-f2@0;
+  !	f4 with f1-f3@0;
+  !	f5 with f1-f4@0;
+  !	f6 with f1-f5@0;
+  !	f7 with f1-f6@0;
+  ! factor covariances fixed at 0
+
+  OUTPUT: TECH1; TECH5;
+  ! use TECH1 to verify that the A matrix is properly specified
+  ! use TECH5 to obtain the function minimum (needed for S-B nested tests)
+
+
+
+*** WARNING in ANALYSIS command
+  Starting with Version 5, TYPE=MEANSTRUCTURE is the default for all
+  analyses.  To remove means from the model, use
+  MODEL=NOMEANSTRUCTURE in the ANALYSIS command.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+cars pc data: Unrestricted model
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         124
+
+Number of dependent variables                                    6
+Number of independent variables                                  0
+Number of continuous latent variables                            4
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   PC1_2       PC1_3       PC1_4       PC2_3       PC2_4       PC3_4
+
+Continuous latent variables
+   F1          F2          F3          F4
+
+
+Estimator                                                     WLSM
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Parameterization                                             THETA
+Link                                                        PROBIT
+
+Input data file(s)
+  \Users\sharpaste\Documents\program\testing\Python\yolo\Mplus\MET_Maydeu-Olivar
+
+Input data format  FREE
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    PC1_2
+      Category 1    0.790           98.000
+      Category 2    0.210           26.000
+    PC1_3
+      Category 1    0.476           59.000
+      Category 2    0.524           65.000
+    PC1_4
+      Category 1    0.379           47.000
+      Category 2    0.621           77.000
+    PC2_3
+      Category 1    0.210           26.000
+      Category 2    0.790           98.000
+    PC2_4
+      Category 1    0.153           19.000
+      Category 2    0.847          105.000
+    PC3_4
+      Category 1    0.427           53.000
+      Category 2    0.573           71.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+     WARNING:  THE RESIDUAL COVARIANCE MATRIX (THETA) IS NOT POSITIVE DEFINITE.
+     THIS COULD INDICATE A NEGATIVE VARIANCE/RESIDUAL VARIANCE FOR AN OBSERVED
+     VARIABLE, A CORRELATION GREATER OR EQUAL TO ONE BETWEEN TWO OBSERVED
+     VARIABLES, OR A LINEAR DEPENDENCY AMONG MORE THAN TWO OBSERVED VARIABLES.
+     CHECK THE RESULTS SECTION FOR MORE INFORMATION.
+     PROBLEM INVOLVING VARIABLE PC1_2.
+
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       14
+
+Chi-Square Test of Model Fit
+
+          Value                              4.939*
+          Degrees of Freedom                     7
+          P-Value                           0.6674
+          Scaling Correction Factor         0.5344
+            for WLSM
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.088
+          Probability RMSEA <= .05           0.814
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.017
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                            273.990
+          Degrees of Freedom                    15
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.042
+
+Optimum Function Value for Weighted Least-Squares Estimator
+
+          Value                     0.10641844D-01
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F1       BY
+    PC1_2              1.000      0.000    999.000    999.000
+    PC1_3              1.000      0.000    999.000    999.000
+    PC1_4              1.000      0.000    999.000    999.000
+
+ F2       BY
+    PC2_3              1.000      0.000    999.000    999.000
+    PC2_4              1.000      0.000    999.000    999.000
+    PC1_2             -1.000      0.000    999.000    999.000
+
+ F3       BY
+    PC3_4              1.000      0.000    999.000    999.000
+    PC1_3             -1.000      0.000    999.000    999.000
+    PC2_3             -1.000      0.000    999.000    999.000
+
+ F4       BY
+    PC1_4             -1.000      0.000    999.000    999.000
+    PC2_4             -1.000      0.000    999.000    999.000
+    PC3_4             -1.000      0.000    999.000    999.000
+
+ F2       WITH
+    F1                 0.014      0.234      0.060      0.952
+    F3                 0.358      0.329      1.088      0.276
+    F4                 0.000      0.000    999.000    999.000
+
+ F3       WITH
+    F1                 0.167      0.275      0.606      0.544
+    F4                 0.000      0.000    999.000    999.000
+
+ F4       WITH
+    F1                 0.000      0.000    999.000    999.000
+
+ Means
+    F1                 0.410      0.150      2.730      0.006
+    F2                 1.377      0.183      7.510      0.000
+    F3                 0.295      0.160      1.841      0.066
+    F4                 0.000      0.000    999.000    999.000
+
+ Thresholds
+    PC1_2$1            0.000      0.000    999.000    999.000
+    PC1_3$1            0.000      0.000    999.000    999.000
+    PC1_4$1            0.000      0.000    999.000    999.000
+    PC2_3$1            0.000      0.000    999.000    999.000
+    PC2_4$1            0.000      0.000    999.000    999.000
+    PC3_4$1            0.000      0.000    999.000    999.000
+
+ Variances
+    F1                 1.000      0.000    999.000    999.000
+    F2                 0.747      0.476      1.572      0.116
+    F3                 1.287      0.468      2.750      0.006
+    F4                 1.000      0.000    999.000    999.000
+
+ Residual Variances
+    PC1_2             -0.268      0.239     -1.123      0.261
+    PC1_3             -0.498      0.211     -2.362      0.018
+    PC1_4              0.547      0.319      1.715      0.086
+    PC2_3              0.598      0.282      2.124      0.034
+    PC2_4             -0.049      0.231     -0.213      0.831
+    PC3_4             -0.161      0.267     -0.601      0.548
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.595E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION
+
+
+           TAU
+              PC1_2$1       PC1_3$1       PC1_4$1       PC2_3$1       PC2_4$1
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           TAU
+              PC3_4$1
+              ________
+                  0
+
+
+           NU
+              PC1_2         PC1_3         PC1_4         PC2_3         PC2_4
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           NU
+              PC3_4
+              ________
+                  0
+
+
+           LAMBDA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ PC1_2              0             0             0             0
+ PC1_3              0             0             0             0
+ PC1_4              0             0             0             0
+ PC2_3              0             0             0             0
+ PC2_4              0             0             0             0
+ PC3_4              0             0             0             0
+
+
+           THETA
+              PC1_2         PC1_3         PC1_4         PC2_3         PC2_4
+              ________      ________      ________      ________      ________
+ PC1_2              1
+ PC1_3              0             2
+ PC1_4              0             0             3
+ PC2_3              0             0             0             4
+ PC2_4              0             0             0             0             5
+ PC3_4              0             0             0             0             0
+
+
+           THETA
+              PC3_4
+              ________
+ PC3_4              6
+
+
+           ALPHA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+                  7             8             9             0
+
+
+           BETA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ F1                 0             0             0             0
+ F2                 0             0             0             0
+ F3                 0             0             0             0
+ F4                 0             0             0             0
+
+
+           PSI
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ F1                 0
+ F2                10            11
+ F3                12            13            14
+ F4                 0             0             0             0
+
+
+     STARTING VALUES
+
+
+           TAU
+              PC1_2$1       PC1_3$1       PC1_4$1       PC2_3$1       PC2_4$1
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           TAU
+              PC3_4$1
+              ________
+                0.000
+
+
+           NU
+              PC1_2         PC1_3         PC1_4         PC2_3         PC2_4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              PC3_4
+              ________
+                0.000
+
+
+           LAMBDA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ PC1_2          1.000        -1.000         0.000         0.000
+ PC1_3          1.000         0.000        -1.000         0.000
+ PC1_4          1.000         0.000         0.000        -1.000
+ PC2_3          0.000         1.000        -1.000         0.000
+ PC2_4          0.000         1.000         0.000        -1.000
+ PC3_4          0.000         0.000         1.000        -1.000
+
+
+           THETA
+              PC1_2         PC1_3         PC1_4         PC2_3         PC2_4
+              ________      ________      ________      ________      ________
+ PC1_2          0.100
+ PC1_3          0.000         0.100
+ PC1_4          0.000         0.000         0.100
+ PC2_3          0.000         0.000         0.000         0.100
+ PC2_4          0.000         0.000         0.000         0.000         0.100
+ PC3_4          0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              PC3_4
+              ________
+ PC3_4          0.100
+
+
+           ALPHA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           BETA
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ F1             0.000         0.000         0.000         0.000
+ F2             0.000         0.000         0.000         0.000
+ F3             0.000         0.000         0.000         0.000
+ F4             0.000         0.000         0.000         0.000
+
+
+           PSI
+              F1            F2            F3            F4
+              ________      ________      ________      ________
+ F1             1.000
+ F2             0.000         0.050
+ F3             0.000         0.000         0.050
+ F4             0.000         0.000         0.000         1.000
+
+
+TECHNICAL 5/6 OUTPUT
+
+   TECHNICAL OUTPUT FROM QUASI-NEWTON ITERATIONS
+
+
+   ITERATIONS USING GRADIENT
+
+
+   ITER STEP   FUNCTION     ABS CHANGE   REL CHANGE   STEP LENGTH   DERIVATIVE
+
+      1   0 0.90143590D+00                           0.000000D+00 -.236484D+01
+          1 0.71493448D+00   -0.1865014   -0.2068937 0.100000D+00 -.149448D+01
+          2 0.51994175D+00   -0.1949927   -0.2727421 0.271709D+00 -.861440D+00
+          3 0.37384517D+00   -0.1460966   -0.2809864 0.505370D+00 -.431395D+00
+          4 0.30598948D+00   -0.0678557   -0.1815075 0.739764D+00 -.164558D+00
+      2   0 0.30598948D+00                           0.000000D+00 -.559342D+00
+          1 0.25079109D+00   -0.0551984   -0.1803931 0.739764D+00 0.627134D+00
+          2 0.17394015D+00   -0.0768509   -0.3064341 0.445942D+00 -.122838D-01
+      3   0 0.17394015D+00                           0.000000D+00 -.577203D+00
+          1 0.18536257D+00    0.0114224    0.0656687 0.445942D+00 0.312851D+00
+          2 0.13474506D+00   -0.0506175   -0.2730730 0.175895D+00 0.135393D-01
+      4   0 0.13474506D+00                           0.000000D+00 -.279984D+00
+          1 0.10233105D+00   -0.0324140   -0.2405581 0.175895D+00 -.785325D-01
+          2 0.10010588D+00   -0.0022252   -0.0217449 0.233121D+00 0.232363D-02
+      5   0 0.10010588D+00                           0.000000D+00 -.316043D+00
+          1 0.89945821D-01   -0.0101601   -0.1014931 0.233121D+00 0.145952D+00
+          2 0.81932071D-01   -0.0080138   -0.0890953 0.128416D+00 -.271758D-02
+      6   0 0.81932071D-01                           0.000000D+00 -.173801D+00
+          1 0.68079473D-01   -0.0138526   -0.1690742 0.128416D+00 -.374004D-01
+          2 0.67494261D-01   -0.0005852   -0.0085960 0.159733D+00 0.358855D-03
+      7   0 0.67494261D-01                           0.000000D+00 -.190522D+00
+          1 0.62987054D-01   -0.0045072   -0.0667791 0.159733D+00 0.101229D+00
+          2 0.59389677D-01   -0.0035974   -0.0571130 0.910838D-01 -.764720D-03
+      8   0 0.59389677D-01                           0.000000D+00 -.110235D+00
+          1 0.53354887D-01   -0.0060348   -0.1016135 0.910838D-01 -.204735D-01
+          2 0.53156430D-01   -0.0001985   -0.0037196 0.110445D+00 0.643682D-04
+      9   0 0.53156430D-01                           0.000000D+00 -.126200D+00
+          1 0.50296513D-01   -0.0028599   -0.0538019 0.110445D+00 0.607438D-01
+          2 0.49008162D-01   -0.0012884   -0.0256151 0.688721D-01 -.301408D-03
+     10   0 0.49008162D-01                           0.000000D+00 -.803629D-01
+          1 0.45572623D-01   -0.0034355   -0.0701014 0.688721D-01 -.185653D-01
+          2 0.45389693D-01   -0.0001829   -0.0040140 0.885350D-01 0.329494D-04
+     11   0 0.45389693D-01                           0.000000D+00 -.100474D+00
+          1 0.43090607D-01   -0.0022991   -0.0506522 0.885350D-01 0.407940D-01
+          2 0.42496544D-01   -0.0005941   -0.0137864 0.597756D-01 -.161427D-03
+     12   0 0.42496544D-01                           0.000000D+00 -.679673D-01
+          1 0.39924331D-01   -0.0025722   -0.0605276 0.597756D-01 -.174828D-01
+          2 0.39751302D-01   -0.0001730   -0.0043339 0.795201D-01 0.285504D-04
+     13   0 0.39751302D-01                           0.000000D+00 -.883367D-01
+          1 0.37785499D-01   -0.0019658   -0.0494525 0.795201D-01 0.333134D-01
+          2 0.37380287D-01   -0.0004052   -0.0107240 0.554325D-01 -.105192D-03
+     14   0 0.37380287D-01                           0.000000D+00 -.609712D-01
+          1 0.35241025D-01   -0.0021393   -0.0572297 0.554325D-01 -.156783D-01
+          2 0.35097017D-01   -0.0001440   -0.0040864 0.737572D-01 0.242441D-04
+     15   0 0.35097017D-01                           0.000000D+00 -.795134D-01
+          1 0.33415310D-01   -0.0016817   -0.0479160 0.737572D-01 0.295585D-01
+          2 0.33089894D-01   -0.0003254   -0.0097385 0.519286D-01 -.738422D-04
+     16   0 0.33089894D-01                           0.000000D+00 -.553884D-01
+          1 0.31280956D-01   -0.0018089   -0.0546674 0.519286D-01 -.138078D-01
+          2 0.31166771D-01   -0.0001142   -0.0036503 0.684292D-01 0.192082D-04
+     17   0 0.31166771D-01                           0.000000D+00 -.717734D-01
+          1 0.29737886D-01   -0.0014289   -0.0458464 0.684292D-01 0.265653D-01
+          2 0.29470546D-01   -0.0002673   -0.0089899 0.484570D-01 -.526711D-04
+     18   0 0.29470546D-01                           0.000000D+00 -.503768D-01
+          1 0.27947074D-01   -0.0015235   -0.0516948 0.484570D-01 -.120882D-01
+          2 0.27858169D-01   -0.0000889   -0.0031812 0.631346D-01 0.146109D-04
+     19   0 0.27858169D-01                           0.000000D+00 -.647242D-01
+          1 0.26652396D-01   -0.0012058   -0.0432825 0.631346D-01 0.237982D-01
+          2 0.26434700D-01   -0.0002177   -0.0081680 0.449647D-01 -.375780D-04
+     20   0 0.26434700D-01                           0.000000D+00 -.457738D-01
+          1 0.25160111D-01   -0.0012746   -0.0482165 0.449647D-01 -.105619D-01
+          2 0.25091437D-01   -0.0000687   -0.0027295 0.579432D-01 0.108537D-04
+     21   0 0.25091437D-01                           0.000000D+00 -.583002D-01
+          1 0.24079667D-01   -0.0010118   -0.0403233 0.579432D-01 0.212171D-01
+          2 0.23904411D-01   -0.0001753   -0.0072781 0.415236D-01 -.267444D-04
+     22   0 0.23904411D-01                           0.000000D+00 -.415489D-01
+          1 0.22843787D-01   -0.0010606   -0.0443694 0.415236D-01 -.923257D-02
+          2 0.22790831D-01   -0.0000530   -0.0023182 0.529745D-01 0.794647D-05
+
+   ITERATIONS USING QUASI-NEWTON
+
+
+   ITER STEP   FUNCTION     ABS CHANGE   REL CHANGE   STEP LENGTH   DERIVATIVE
+
+      1   0 0.22790831D-01                           0.000000D+00 -.524892D-01
+          1 0.24164522D-01    0.0013737    0.0602738 0.100000D+00 0.744685D-01
+          2 0.21805236D-01   -0.0023593   -0.0976343 0.382764D-01 0.661504D-04
+      2   0 0.21805236D-01                           0.000000D+00 -.306541D-01
+          1 0.20667165D-01   -0.0011381   -0.0521925 0.382764D-01 -.288059D-01
+          2 0.13106815D-01   -0.0075604   -0.3658146 0.560933D+00 0.196884D-02
+      3   0 0.13106815D-01                           0.000000D+00 -.186625D-01
+          1 0.50982134D-01    0.0378753    2.8897424 0.560933D+00 0.126775D+00
+          2 0.12722373D-01   -0.0382598   -0.7504543 0.477229D-01 0.207935D-02
+          3 0.12717073D-01   -0.0000053   -0.0004166 0.426282D-01 -.357953D-05
+      4   0 0.12717073D-01                           0.000000D+00 -.978170D-02
+          1 0.12357363D-01   -0.0003597   -0.0282856 0.426282D-01 -.710727D-02
+          2 0.11939213D-01   -0.0004181   -0.0338381 0.162211D+00 0.285837D-04
+      5   0 0.11939213D-01                           0.000000D+00 -.111727D-01
+          1 0.11510411D-01   -0.0004288   -0.0359154 0.162211D+00 0.560532D-02
+          2 0.11352556D-01   -0.0001579   -0.0137141 0.106179D+00 -.204792D-05
+      6   0 0.11352556D-01                           0.000000D+00 -.720110D-02
+          1 0.11327099D-01   -0.0000255   -0.0022424 0.106179D+00 0.656056D-02
+          2 0.11157074D-01   -0.0001700   -0.0150104 0.546296D-01 -.123933D-06
+      7   0 0.11157074D-01                           0.000000D+00 -.528554D-02
+          1 0.10963976D-01   -0.0001931   -0.0173072 0.546296D-01 -.179466D-02
+          2 0.10938483D-01   -0.0000255   -0.0023252 0.831187D-01 0.269826D-05
+      8   0 0.10938483D-01                           0.000000D+00 -.460123D-02
+          1 0.11028776D-01    0.0000903    0.0082546 0.831187D-01 0.704961D-02
+          2 0.10858936D-01   -0.0001698   -0.0153997 0.342557D-01 0.116631D-05
+      9   0 0.10858936D-01                           0.000000D+00 -.451589D-02
+          1 0.10757900D-01   -0.0001010   -0.0093044 0.342557D-01 -.138943D-02
+          2 0.10747244D-01   -0.0000107   -0.0009905 0.496151D-01 0.830600D-06
+     10   0 0.10747244D-01                           0.000000D+00 -.163171D-02
+          1 0.10716394D-01   -0.0000308   -0.0028705 0.496151D-01 0.375932D-03
+          2 0.10714620D-01   -0.0000018   -0.0001656 0.401853D-01 -.640855D-07
+     11   0 0.10714620D-01                           0.000000D+00 -.212922D-02
+          1 0.10681966D-01   -0.0000327   -0.0030476 0.401853D-01 0.509399D-03
+          2 0.10680001D-01   -0.0000020   -0.0001840 0.324652D-01 -.659876D-07
+     12   0 0.10680001D-01                           0.000000D+00 -.211151D-02
+          1 0.10669966D-01   -0.0000100   -0.0009397 0.324652D-01 0.151790D-02
+          2 0.10659812D-01   -0.0000102   -0.0009516 0.190478D-01 -.766868D-07
+     13   0 0.10659812D-01                           0.000000D+00 -.149490D-02
+          1 0.10659507D-01   -0.0000003   -0.0000286 0.190478D-01 0.145856D-02
+          2 0.10652627D-01   -0.0000069   -0.0006455 0.962023D-02 -.317344D-09
+     14   0 0.10652627D-01                           0.000000D+00 -.784848D-03
+          1 0.10648536D-01   -0.0000041   -0.0003840 0.962023D-02 -.636991D-04
+     15   0 0.10648536D-01                           0.000000D+00 -.312789D-03
+          1 0.10649364D-01    0.0000008    0.0000778 0.962023D-02 0.486284D-03
+          2 0.10647945D-01   -0.0000014   -0.0001333 0.376574D-02 -.904102D-06
+     16   0 0.10647945D-01                           0.000000D+00 -.361076D-03
+          1 0.10646934D-01   -0.0000010   -0.0000950 0.376574D-02 -.176072D-03
+          2 0.10646618D-01   -0.0000003   -0.0000296 0.734967D-02 -.247531D-07
+     17   0 0.10646618D-01                           0.000000D+00 -.372073D-03
+          1 0.10644422D-01   -0.0000022   -0.0002063 0.734967D-02 -.225457D-03
+          2 0.10643153D-01   -0.0000013   -0.0001192 0.186515D-01 0.114163D-05
+     18   0 0.10643153D-01                           0.000000D+00 -.295962D-03
+          1 0.10655107D-01    0.0000120    0.0011231 0.186515D-01 0.157267D-02
+          2 0.10642719D-01   -0.0000124   -0.0011626 0.293394D-02 0.855203D-08
+     19   0 0.10642719D-01                           0.000000D+00 -.164778D-03
+          1 0.10642436D-01   -0.0000003   -0.0000266 0.293394D-02 -.284096D-04
+          2 0.10642427D-01    0.0000000   -0.0000008 0.354517D-02 -.277831D-07
+     20   0 0.10642427D-01                           0.000000D+00 -.120442D-03
+          1 0.10642312D-01   -0.0000001   -0.0000108 0.354517D-02 0.554588D-04
+          2 0.10642281D-01    0.0000000   -0.0000029 0.242743D-02 0.359885D-07
+     21   0 0.10642281D-01                           0.000000D+00 -.112526D-03
+          1 0.10642074D-01   -0.0000002   -0.0000194 0.242743D-02 -.578630D-04
+          2 0.10642000D-01   -0.0000001   -0.0000070 0.499698D-02 0.577515D-07
+     22   0 0.10642000D-01                           0.000000D+00 -.506249D-04
+          1 0.10642366D-01    0.0000004    0.0000344 0.499698D-02 0.196934D-03
+          2 0.10641974D-01   -0.0000004   -0.0000368 0.102187D-02 0.897588D-07
+     23   0 0.10641974D-01                           0.000000D+00 -.738295D-04
+          1 0.10641909D-01   -0.0000001   -0.0000061 0.102187D-02 -.523710D-04
+          2 0.10641844D-01   -0.0000001   -0.0000061 0.351581D-02 0.658417D-07
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    C:\Users\sharpaste\Documents\program\testing\Python\yolo\Mplus\MET_Maydeu-Olivares_web\Thurstone_form.dgm
+
+     Beginning Time:  15:46:19
+        Ending Time:  15:46:19
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen

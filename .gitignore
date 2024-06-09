@@ -1,0 +1,5 @@
+.vscode/launch.json
+.vscode/settings.json
+spider\rank_data
+main/__pycache__/
+spider/__pycache__

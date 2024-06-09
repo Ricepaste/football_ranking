@@ -1,0 +1,87 @@
+VERSION 1.1.0
+INPUT
+TITLE:
+ cars pc data: Unrestricted model
+DATA:
+ FILE IS '\Users\sharpaste\Documents\program\
+ testing\Python\yolo\Mplus\MET_Maydeu-Olivares_web\test.dat';
+VARIABLE:
+ NAMES ARE pc1_2-pc1_4 pc2_3-pc2_4
+ pc3_4;
+ CATEGORICAL = pc1_2-pc1_4 pc2_3-pc2_4
+ pc3_4;
+ANALYSIS:
+ TYPE = MEANSTRUCTURE;
+ ESTIMATOR=WLSM;
+ PARAMETERIZATION = THETA;
+OUTPUT:
+ TECH1; TECH5;
+MODEL:
+ f1 BY pc1_2-pc1_4@1;
+ f2 BY pc2_3-pc2_4@1;
+ f3 BY pc3_4@1;
+ f2 BY pc1_2@-1 ;
+ f3 BY pc1_3@-1 pc2_3@-1 ;
+ f4 BY pc1_4@-1 pc2_4@-1
+  pc3_4@-1 ;
+ [pc1_2$1-pc3_4$1@0];
+ [f1-f3* f4@0];
+ pc1_2-pc3_4*.1;
+ f1@1;
+ f4@1;
+ f2 with f1*;
+ f3 with f1-f2*;
+ f4 with f1-f3@0;
+INPUT_END
+2
+0
+0
+0
+WLSM
+1
+GENERAL
+0
+6
+4
+0
+pc1_2 pc1_3 pc1_4 pc2_3 pc2_4 pc3_4 f1 f2 f3 f4
+1
+-1 -1 -1 -1 -1 -1 0 0 0 0
+0
+4
+f1
+pc1_2 pc1_3 pc1_4
+f2
+pc2_3 pc2_4 pc1_2
+f3
+pc3_4 pc1_3 pc2_3
+f4
+pc1_4 pc2_4 pc3_4
+1 1 f1 pc1_2    1.000    0.000
+1 1 f1 pc1_3    1.000    0.000
+1 1 f1 pc1_4    1.000    0.000
+1 1 f2 pc2_3    1.000    0.000
+1 1 f2 pc2_4    1.000    0.000
+1 1 f2 pc1_2   -1.000    0.000
+1 1 f3 pc3_4    1.000    0.000
+1 1 f3 pc1_3   -1.000    0.000
+1 1 f3 pc2_3   -1.000    0.000
+1 1 f4 pc1_4   -1.000    0.000
+1 1 f4 pc2_4   -1.000    0.000
+1 1 f4 pc3_4   -1.000    0.000
+2 1 f2 f1    0.014    0.234
+2 1 f2 f3    0.358    0.329
+2 1 f2 f4    0.000    0.000
+2 1 f3 f1    0.167    0.275
+2 1 f3 f4    0.000    0.000
+2 1 f4 f1    0.000    0.000
+4 1 pc1_2   -0.268    0.239
+4 1 pc1_3   -0.498    0.211
+4 1 pc1_4    0.547    0.319
+4 1 pc2_3    0.598    0.282
+4 1 pc2_4   -0.049    0.231
+4 1 pc3_4   -0.161    0.267
+5 1 f1    1.000    0.000
+5 1 f2    0.747    0.476
+5 1 f3    1.287    0.468
+5 1 f4    1.000    0.000
