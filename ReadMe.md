@@ -136,6 +136,43 @@ footballRanking/
 
 ```
 
+```mermaid
+graph LR;
+    subgraph Preprocessing["Data Preprocessing"]
+        A[footballRanking]
+        A --> B3[form_rank]
+        B3 --> D1[Football_Ranking.csv]
+        B3 --> D2[pair.csv]
+        B3 --> D3[rank_to_pair.py]
+    end
+    subgraph Analysis["Ranking Analysis"]
+        A --> B4[main]
+        B4 --> E1[Animation.ipynb]
+        B4 --> E2[Bradley_Terry.py]
+        B4 --> E3[Correlation_Cauculation.py]
+        B4 --> E4[Elo.py]
+        B4 --> E5[random_walk_matrix.py]
+        B4 --> E6[Thurstone_Generate_pair2pair_data.py]
+        B4 --> E7[...]
+    end
+    subgraph External["External Tools"]
+        A --> B5[Mplus]
+        B5 --> F1[MET_Maydeu-Olivares_web]
+        B5 --> F2[...]
+    end
+    subgraph DataCollection["Data Collection"]
+        A --> B6[spider]
+        B6 --> G1[msedgedriver.exe]
+        B6 --> G2[NCAA_record.py]
+        B6 --> G3[spider.py]
+        B6 --> G4[rank_data]
+        B6 --> G5[thurstone]
+    end
+    subgraph README["other"]
+        A --> B7[README.md]
+        A --> B1[.gitignore]
+    end
+```
 
 ## Contact Information
 
